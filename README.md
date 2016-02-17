@@ -89,12 +89,20 @@ Cofirm time change by typing `date` on the command line
 and https://help.ubuntu.com/community/UbuntuTime 
 
 ## 12. Install and configure Apache to serve a Python mod_wsgi application
-`sudo apt-get install apache2`
-Confirm successful installation by visiting http://52.24.160.178/ (URL from 
+Install Apache `sudo apt-get install apache2`
+<br>Confirm successful installation by visiting http://52.24.160.178/ (URL from 
 Udacity Environment information for AWS instance). It should say "It Works" and 
 display other Apache information on the page.
+<br>
+Install Python MOD_WSGI `sudo apt-get install libapache2-mod-wsgi`
+<br> Configure WSGI app `sudo nano /etc/apache2/sites-enabled/000-default.conf`
+At the end of the <VirtualHost *:80> block, right before the closing </VirtualHost> 
+add this line: WSGIScriptAlias / /var/www/html/myapp.wsgi
+<br> Restart Apache `sudo service apache2 restart`
+NOTE: After restart the Home page will return a 404, we’ll fix that next by configuring Apache to serve WSGI application
 
 
+## 13. 
 
 
 
