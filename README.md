@@ -75,8 +75,7 @@ To                         Action      From
 Confirm that root can SSH and login from local computer, 
 `ssh -i ~/.ssh/udacity_key.rsa -p 2200 root@AWS_IP_ADDRESS`
 If yes, hooray we can proceed. If not, repeat these steps starting at the beginning since
-you are locked out of the server. 
-<br>~ There may be a way to use a GUI to still access the server and fix the problem, check notes.
+you are locked out of the server.
 
 ## 11. Configure local Timezone to UTC
 `dpkg-reconfigure tzdata`
@@ -89,21 +88,62 @@ Cofirm time change by typing `date` on the command line
 and https://help.ubuntu.com/community/UbuntuTime 
 
 ## 12. Install and configure Apache to serve a Python mod_wsgi application
-Install Apache `sudo apt-get install apache2`
-<br>Confirm successful installation by visiting http://52.24.160.178/ (URL from 
+*Install Apache* 
+`sudo apt-get install apache2` <br>
+Confirm successful installation by visiting http://52.24.160.178/ (URL from 
 Udacity Environment information for AWS instance). It should say "It Works" and 
 display other Apache information on the page.
-<br>
-Install Python MOD_WSGI `sudo apt-get install libapache2-mod-wsgi`
-<br> Configure WSGI app `sudo nano /etc/apache2/sites-enabled/000-default.conf`
+<br><br>
+*Install Python mod_wsgi* 
+`sudo apt-get install libapache2-mod-wsgi` <br> <br>
+*Install and Configure Demo WSGI app* 
+`sudo nano /etc/apache2/sites-enabled/000-default.conf` <br>
 At the end of the <VirtualHost *:80> block, right before the closing </VirtualHost> 
-add this line: WSGIScriptAlias / /var/www/html/myapp.wsgi
+add this line: `WSGIScriptAlias / /var/www/html/myapp.wsgi`
 <br> Restart Apache `sudo service apache2 restart`
 NOTE: After restart the Home page will return a 404, we’ll fix that next by configuring Apache to serve WSGI application
 
 
-## 13. 
+## 13. Configure Apache to serve basic WSGI application
+- Create the /var/www/html/myapp.wsgi file using the command `sudo nano /var/www/html/myapp.wsgi`
+- Within this file, write the following application:
+```
+def application(environ, start_response):     
+	status = '200 OK'     
+	output = 'Hello World!'      
+	response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]     start_response(status, response_headers)      
+	return [output] 
+```
+- Refresh the page and the text in the script above will be displayed
 
+## 14. Install and configure PostgreSQL
+- Install PostgreSQL `sudo apt-get install postgresql postgresql-contrib`
+- Check that no remote connections are allowed. `sudo less /etc/postgresql/9.3/main/pg_hba.conf`
+By default, remote connectsions to the database
+are disabled for security reasons when installing PostgreSQL from the Ubuntu repositories.<br> 
+https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
+- Documentation: https://help.ubuntu.com/community/PostgreSQL, 
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04
+- Basic server set-up `sudo -u postgres psql postgres`
+- Set-up password for user postgres by typing `\password postgres` and enter password
 
+## 15. Create a new user named _catalog_ that has limited permissions to the database
+- Connect to database: `sudo –u postgres psql postgres` to connect as user postgres
+- Type `psql` to generate PostgreSQL prompt
+- Create new user `CREATE USER catalog WITH PASSWORD ‘your_passwd’;`
+- Confirm that user was created `Check that user was created, type: \du`
+- Documentation: : http://www.postgresql.org/docs/8.0/static/sql-createuser.html <br>
+http://www.postgresql.org/docs/9.1/static/sql-createrole.html 
 
+## 16. Limit permissions to new user catalog
+- Run \du to see what permissions catalog has
+- To see possible roles, type: `\h CREATE ROLE`
+- Add permissions: <br>
+`ALTER ROLE catalog WITH LOGIN;`
+`ALTER USER catalog CREATEDB;`
+- Create the database `CREATE DATABASE catalog WITH OWNER catalog;`
+- Login to the database `\c catalog`
+- Revoke all rights:
+`# REVOKE ALL ON SCHEMA public FROM public;` 
+- Documentation: https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
 
