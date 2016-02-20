@@ -303,8 +303,7 @@ Prompted to run: service apache2 reload to activate the new configuration
 ```
 cd /var/www/catalog
 sudo nano catalog.wsgi
-``
-`
+```
 - Add this to the file:
 ```
 #!/usr/bin/python 
@@ -333,7 +332,7 @@ Edit these files: database_setup.py, project.py, and lotofevents-users.py
 - Add EC2 URL (without the http://) to the VirtualHost as the ServerAlias value <br> 
 `sudo nano /etc/apache2/sites-enabled/catalog.conf`
 - Add EC2 URL (without the http://) to 'hosts' file <br>
-- `sudo nano /etc/hosts` 
+`sudo nano /etc/hosts` 
 
 - Remove default.conf and DemoApp.conf from being enabled (extra step since issues 
 with seeing site on AWS)
