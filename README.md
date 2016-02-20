@@ -375,8 +375,8 @@ sudo a2dissite DemoApp.conf
   - Click on Settings and navigate to Valid OAuth redirect URIs section
   - Add URLs for local and EC2 instance and then Save
 
-=-=-=-=-=-=-=-=-=-= <br>
-Exceeds Specifications
+
+# Exceeds Specifications
 ## Add support for unattended package updates <br>
 `sudo apt-get install unattended-upgrades`
 - Edit `/etc/apt/apt.conf.d/10periodic` and add this line <br> 
