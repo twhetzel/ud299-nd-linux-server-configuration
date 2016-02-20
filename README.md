@@ -1,21 +1,20 @@
 # Linux Server Configuration
 Set-up information for Udacity course ud299 on how to configure a Linux Server. Root login 
-credentials for an EC2 instance of Amazon are provided by Udacity.
+credentials for an EC2 instance on AWS are provided by Udacity.
 
-## 1. Login as Root to Server
-Go to `https://www.udacity.com/account#!/development_environment` to get your AWS IP address
+## 1. Login as root to server
+Go to https://www.udacity.com/account#!/development_environment to get your AWS IP address
 and key. Login to the server as this root user using the key provided by Udacity.
 
 ## 2. Add a new user
-- As root, type `sudo adduser grader`. Then follow prompts for password 
+- As root, type `sudo adduser grader`. Then follow prompts to add a password 
 and name for this new account. 
 - Confirm addition of the new user by typing `sudo /cat/etc/passwd`, 
 the user grader should be listed in the output.
 
 ## 3. Give grader sudo permission
 - As the root user, type `visudo`. 
-Reference Documentation: https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps
-
+- Reference Documentation: https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps
 
 ## 4. Set-up Key-based Authentication/Public Key Encryption
 - Using ssh-keygen on your local machine, create a key for the user grader. <br>
@@ -24,15 +23,34 @@ This process will create two keys on your local machine, the file with extension
 the public key to be transferred to the server.
 
 ## 5. Add Public Key to Server (EC2 instance)
-- Create a key on the AWS server using the contents of the .pub key file created above.
+- Login to the server as the new grader user.
+- Run these commands in your home directory 
+```
+mkdir .ssh
+touch .ssh/authorized_keys
+``` 
+- Copy-and-paste the contents of the .pub key file created on your local machine 
+above to the server as the contents of the authorized_keys file.
 
-## 6. Set-up Permissions on the .ssh file in the Student Terminal 
+## 6. Set-up Permissions on the .ssh file while logged in as grader
+Run these commands:
+```
+chmod 700 .ssh
+chmod 664 .ssh/authorized_keys
+``` 
+- Then from the local computer, login to server using an additional flag to indicate the key file:
+`ssh student@127.0.0.1 -p 2222 –i ~/.ssh/linuxCourse`
 
 ## 7. Disable Password Based Login and Force Login using Key Pair 
+- On the server, logged in as the student user, edit the sshd_config file, `sudo nano /etc/ssh/sshd_config` 
+- Change the line with Password Authentication from yes to no
+- This is read only when the service starts, so to restart the ssh service, `sudo service ssh restart`
 
 ## 8. Update all currently installed packages
-`sudo apt-get update` This lists all the packages to update. 
-`sudo apt-get upgrade` This actually updates the packages.
+- List all the packages to update 
+`sudo apt-get update` 
+- Update the packages  
+`sudo apt-get upgrade` 
 
 ## 9. Change the SSH port from 22 to 2200
 `nano /etc/ssh/sshd_config`
