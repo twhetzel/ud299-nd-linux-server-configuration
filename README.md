@@ -392,6 +392,7 @@ Also, change the AutocleanInterval from 0 to 7
 ```
 sudo apt-get update
 sudo apt-get install fail2ban
+```
 - Copy jail.conf to local copy since .conf can be modified by package updates <br>
 `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
 - Edit file <br>
@@ -409,10 +410,4 @@ be displayed in the list
 `sudo pip install glances`
 - Run Glances by typing `glances`
 - Reference Documentation: https://pypi.python.org/pypi/Glances and http://glances.readthedocs.org/en/latest/glances-doc.html#web-server-mode
-
-
-
-
-
-
 
