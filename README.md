@@ -55,8 +55,8 @@ chmod 664 .ssh/authorized_keys
 `sudo nano /etc/ssh/sshd_config`
 - Change to `PermitRootLogin no`
 - Enable grader user remote ssh login
-`sudo nano /etc/ssh/sshd_config` and add AllowUsers grader
-- Restart SSH service
+`sudo nano /etc/ssh/sshd_config` and add `AllowUsers grader`
+- Restart the ssh service
 `sudo service ssh restart`
 
 ## 8. Update all currently installed packages
@@ -64,7 +64,8 @@ chmod 664 .ssh/authorized_keys
 `sudo apt-get update` 
 - Update the packages <br>  
 `sudo apt-get upgrade` 
-- Further updates using `sudo apt-get dist-upgrade`
+- Further updates <br>
+`sudo apt-get dist-upgrade`
 
 ## 9. Change the SSH port from 22 to 2200
 - Edit the file to change the SSH port from 22 to 2200. <br>
@@ -105,7 +106,7 @@ To                         Action      From
 80/tcp (v6)                ALLOW       Anywhere (v6)
 123/udp (v6)               ALLOW       Anywhere (v6)
 ```
-NOTE: During the grading process, requested to perform `sudo ufw deny 22` to disable port 22
+_NOTE: During the grading process, requested to perform `sudo ufw deny 22` to disable port 22_
 <br><br> 
 - Confirm that root can SSH and login from local computer, 
 `ssh -i ~/.ssh/udacity_key.rsa -p 2200 root@AWS_IP_ADDRESS` <br>
@@ -141,8 +142,7 @@ add this line: <br>
 - NOTE: After restart the Home page will return a 404, we’ll fix that next by 
 configuring Apache to serve WSGI application
 
-## 13. Configure Apache to serve basic WSGI application to confirm installation of Apache
-and mod_wsgi
+## 13. Configure Apache to serve basic WSGI application to confirm installation of Apache and mod_wsgi
 - Create the file /var/www/html/myapp.wsgi as <br>
 `sudo nano /var/www/html/myapp.wsgi`
 - Within this file, write the following application
@@ -204,10 +204,10 @@ ALTER USER catalog CREATEDB;
 `sudo service postgresql restart`
 - Reference Documentation: https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
 
-## 17. Instal Git
+## 17. Install Git
 - Install Git as <br> 
 `sudo apt-get install git`
-- Edit Git Configuration <br>	
+- Edit Git Configuration
 ```
 git config --global user.name "Your Name"
 git config --global user.email youremail@domain.com
