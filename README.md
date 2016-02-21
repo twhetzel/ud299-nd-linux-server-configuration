@@ -1,6 +1,7 @@
 # Linux Server Configuration
 Set-up information for Udacity course ud299 on how to configure a Linux Server. Root login 
 credentials for an EC2 instance on AWS are provided by Udacity. The EC2 URL is http://ec2-52-24-160-178.us-west-2.compute.amazonaws.com/
+and the local IP address is http://52.24.160.178/
 
 
 ## 1. Login as root to server
