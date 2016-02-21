@@ -49,11 +49,21 @@ chmod 664 .ssh/authorized_keys
 - This is read only when the service starts, so to restart the ssh service <br> 
 `sudo service ssh restart`
 
+## Disable remote login of root user
+- On the server, logged in as root, edit the sshd_config file <br>
+`sudo nano /etc/ssh/sshd_config`
+- Change to `PermitRootLogin no`
+- Enable grader user remote ssh login
+`sudo nano /etc/ssh/sshd_config` and add AllowUsers grader
+- Restart SSH service
+`sudo service ssh restart`
+
 ## 8. Update all currently installed packages
 - List all the packages to update <br> 
 `sudo apt-get update` 
 - Update the packages <br>  
 `sudo apt-get upgrade` 
+- Further updates using `sudo apt-get dist-upgrade`
 
 ## 9. Change the SSH port from 22 to 2200
 - Edit the file to change the SSH port from 22 to 2200. <br>
@@ -94,6 +104,7 @@ To                         Action      From
 80/tcp (v6)                ALLOW       Anywhere (v6)
 123/udp (v6)               ALLOW       Anywhere (v6)
 ```
+NOTE: During the grading process, requested to perform `sudo ufw deny 22` to disable port 22
 <br><br> 
 - Confirm that root can SSH and login from local computer, 
 `ssh -i ~/.ssh/udacity_key.rsa -p 2200 root@AWS_IP_ADDRESS` <br>
@@ -380,6 +391,7 @@ sudo a2dissite DemoApp.conf
 # Exceeds Specifications
 ## Add support for unattended package updates <br>
 `sudo apt-get install unattended-upgrades`
+- Edit /etc/apt/apt.conf.d/50unattended-upgrades and uncomment line for `"${distro_id}:${distro_codename}-updates";`
 - Edit `/etc/apt/apt.conf.d/10periodic` and add this line <br> 
 `APT::Periodic::Unattended-Upgrade "1";`  <br>
 Also, change the AutocleanInterval from 0 to 7
