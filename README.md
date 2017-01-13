@@ -11,7 +11,7 @@ and key. Login to the server as this root user using the key provided by Udacity
 ## 2. Add a new user
 - As root, type `sudo adduser grader`. Then follow prompts to add a password 
 and name for this new account. 
-- Confirm addition of the new user by typing `sudo cat/etc/passwd`, 
+- Confirm addition of the new user by typing `sudo cat /etc/passwd`, 
 the user grader should be listed in the output.
 
 ## 3. Give grader sudo permission
