@@ -176,7 +176,7 @@ when installing PostgreSQL from the Ubuntu repositories.<br>
 `sudo –u postgres psql postgres` 
 - Type `psql` to generate PostgreSQL prompt
 - Create a new user <br> 
-`CREATE USER catalog WITH PASSWORD ‘your_passwd’;`
+`CREATE USER catalog WITH PASSWORD 'your_passwd';`
 - Confirm that the user was created <br> 
 `\du`
 - Reference Documentation: http://www.postgresql.org/docs/8.0/static/sql-createuser.html 
