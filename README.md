@@ -173,7 +173,7 @@ when installing PostgreSQL from the Ubuntu repositories.<br>
 
 ## 15. Create a new database user named with limited permissions to the database
 - Connect to database as the user postgres
-`sudo –u postgres psql postgres` 
+`sudo su - postgres` 
 - Type `psql` to generate PostgreSQL prompt
 - Create a new user <br> 
 `CREATE USER catalog WITH PASSWORD 'your_passwd';`
